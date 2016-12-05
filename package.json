@@ -26,8 +26,8 @@
     ]
   },
   "dependencies": {
+    "actions-on-google": "^1.0.0",
     "body-parser": "^1.15.2",
-    "debug": "^2.2.0",
     "elizabot": "0.0.2",
     "express": "^4.13.4"
   },

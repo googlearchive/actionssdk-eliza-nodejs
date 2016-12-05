@@ -1,9 +1,8 @@
 {
-  "name": "actionPackages/8122615",
   "versionLabel": "Eliza v1",
   "agentInfo": {
     "languageCode": "en-US",
-    "projectId": "eliza-action",
+    "projectId": "<PROJECT_ID>",
     "invocationNames": [
       "eliza"
     ],
@@ -26,7 +25,7 @@
         }
       ],
       "httpExecution": {
-        "url": "https://eliza-action.appspot.com/"
+        "url": "<PROJECT_ENDPOINT>"
       }
     },
     {
@@ -56,7 +55,7 @@
         }
       ],
       "httpExecution": {
-        "url": "https://eliza-action.appspot.com/"
+        "url": "<PROJECT_ENDPOINT>"
       }
     }
   ],
