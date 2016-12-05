@@ -1,0 +1,67 @@
+{
+  "name": "actionPackages/8122615",
+  "versionLabel": "Eliza v1",
+  "agentInfo": {
+    "languageCode": "en-US",
+    "projectId": "eliza-action",
+    "invocationNames": [
+      "eliza"
+    ],
+    "voiceName": "female_1"
+  },
+  "actions": [
+    {
+      "description": "Start an Eliza consultation",
+      "initialTrigger": {
+        "intent": "assistant.intent.action.MAIN"
+      },
+      "inDialogTriggers": [
+        {
+          "intent": "raw.input",
+          "queryPatterns": [
+            {
+              "queryPattern": "$SchemaOrg_Text:text"
+            }
+          ]
+        }
+      ],
+      "httpExecution": {
+        "url": "https://eliza-action.appspot.com/"
+      }
+    },
+    {
+      "description": "Deep link to Eliza consultation",
+      "initialTrigger": {
+        "intent": "raw.input",
+        "queryPatterns": [
+          {
+            "queryPattern": "that $SchemaOrg_Text:text"
+          },
+          {
+            "queryPattern": "if $SchemaOrg_Text:text"
+          },
+          {
+            "queryPattern": "I need to talk about my life"
+          }
+        ]
+      },
+      "inDialogTriggers": [
+        {
+          "intent": "raw.input",
+          "queryPatterns": [
+            {
+              "queryPattern": "$SchemaOrg_Text:text"
+            }
+          ]
+        }
+      ],
+      "httpExecution": {
+        "url": "https://eliza-action.appspot.com/"
+      }
+    }
+  ],
+  "deploymentStatus": {
+    "state": "NEW"
+  },
+  "versionId": "1"
+}
