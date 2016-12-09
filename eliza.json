@@ -14,16 +14,6 @@
       "initialTrigger": {
         "intent": "assistant.intent.action.MAIN"
       },
-      "inDialogTriggers": [
-        {
-          "intent": "raw.input",
-          "queryPatterns": [
-            {
-              "queryPattern": "$SchemaOrg_Text:text"
-            }
-          ]
-        }
-      ],
       "httpExecution": {
         "url": "<PROJECT_ENDPOINT>"
       }
@@ -34,26 +24,19 @@
         "intent": "raw.input",
         "queryPatterns": [
           {
-            "queryPattern": "that $SchemaOrg_Text:text"
+            "queryPattern": "my emotional state is $SchemaOrg_Text:text"
           },
           {
-            "queryPattern": "if $SchemaOrg_Text:text"
+            "queryPattern": "I am concerned about $SchemaOrg_Text:text"
           },
           {
-            "queryPattern": "I need to talk about my life"
+            "queryPattern": "I am feeling $SchemaOrg_Text:text"
+          },
+          {
+            "queryPattern": "I need to talk about my feelings"
           }
         ]
       },
-      "inDialogTriggers": [
-        {
-          "intent": "raw.input",
-          "queryPatterns": [
-            {
-              "queryPattern": "$SchemaOrg_Text:text"
-            }
-          ]
-        }
-      ],
       "httpExecution": {
         "url": "<PROJECT_ENDPOINT>"
       }

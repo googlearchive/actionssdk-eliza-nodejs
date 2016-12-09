@@ -33,10 +33,7 @@ app.use(bodyParser.json({type: 'application/json'}));
 const mainIntentHandler = (assistant) => {
   console.log('Main intent triggered.');
   const eliza = new Eliza();
-  assistant.ask(eliza.getInitial(),
-    [{'intent': RAW_INTENT}],
-    ["$SchemaOrg_Text"],
-    {elizaInstance: eliza});
+  assistant.ask(eliza.getInitial(), {elizaInstance: eliza});
 };
 
 /**
@@ -62,10 +59,7 @@ const rawIntentHandler = (assistant) => {
   if (eliza.quit) {
     assistant.tell(eliza.getFinal());
   } else {
-    assistant.ask(elizaReply,
-      [{'intent': RAW_INTENT}],
-      ["$SchemaOrg_Text"],
-      {elizaInstance: eliza});
+    assistant.ask(elizaReply, {elizaInstance: eliza});
   }
 };
 
@@ -80,6 +74,7 @@ const RAW_INTENT = 'raw.input';
  */
 actionMap.set(new ActionsSdkAssistant().StandardIntents.MAIN, mainIntentHandler);
 actionMap.set(RAW_INTENT, rawIntentHandler);
+actionMap.set(new ActionsSdkAssistant().StandardIntents.TEXT, rawIntentHandler);
 
 /**
  * Handles the post request incoming from Assistant.
