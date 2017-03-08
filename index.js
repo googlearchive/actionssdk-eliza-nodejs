@@ -12,19 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START app]
 'use strict';
 
 process.env.DEBUG = 'actions-on-google:*';
 
 const ActionsSdkAssistant = require('actions-on-google').ActionsSdkAssistant;
 const Eliza = require('elizabot');
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const app = express();
-app.set('port', (process.env.PORT || 8080));
-app.use(bodyParser.json({type: 'application/json'}));
 
 /**
  * Handles the main intent coming from Assistant, when the user first engages with the action,
@@ -79,15 +72,8 @@ actionMap.set(new ActionsSdkAssistant().StandardIntents.TEXT, rawIntentHandler);
 /**
  * Handles the post request incoming from Assistant.
  */
-app.post('/', (request, response) => {
+exports.eliza = (req, res) => {
   console.log('Incoming post request...');
-  const assistant = new ActionsSdkAssistant({request: request, response: response});
+  const assistant = new ActionsSdkAssistant({request: req, response: res});
   assistant.handleRequest(actionMap);
-});
-
-// Start the server
-const server = app.listen(app.get('port'), () => {
-  console.log('Eliza endpoint listening on port %s', server.address().port);
-  console.log('Press Ctrl+C to quit.');
-});
-// [END app]
+};
