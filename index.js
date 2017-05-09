@@ -56,24 +56,26 @@ const rawIntentHandler = (assistant) => {
   }
 };
 
-// Map that contains the intents and respective handlers to be used by the actions client library
-const actionMap = new Map();
 
 // Intent constants
 const RAW_INTENT = 'raw.input';
 
 /**
- * Configures the post request handler by setting the intent map to the right functions.
- */
-actionMap.set(new ActionsSdkAssistant().StandardIntents.MAIN, mainIntentHandler);
-actionMap.set(RAW_INTENT, rawIntentHandler);
-actionMap.set(new ActionsSdkAssistant().StandardIntents.TEXT, rawIntentHandler);
-
-/**
  * Handles the post request incoming from Assistant.
  */
-exports.eliza = (req, res) => {
+exports.eliza = (request, response) => {
   console.log('Incoming post request...');
-  const assistant = new ActionsSdkAssistant({request: req, response: res});
+  const assistant = new ActionsSdkAssistant({request, response});
+
+  // Map that contains the intents and respective handlers to be used by the actions client library
+  const actionMap = new Map();
+
+  /**
+   * Configures the post request handler by setting the intent map to the right functions.
+   */
+  actionMap.set(assistant.StandardIntents.MAIN, mainIntentHandler);
+  actionMap.set(RAW_INTENT, rawIntentHandler);
+  actionMap.set(assistant.StandardIntents.TEXT, rawIntentHandler);
+
   assistant.handleRequest(actionMap);
 };
