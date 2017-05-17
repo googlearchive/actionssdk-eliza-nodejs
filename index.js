@@ -16,66 +16,80 @@
 
 process.env.DEBUG = 'actions-on-google:*';
 
-const ActionsSdkAssistant = require('actions-on-google').ActionsSdkAssistant;
+const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
 const Eliza = require('elizabot');
 
+// Intent constants
+const RAW_INTENT = 'raw.input';
+const INVOCATION_ARGUMENT = 'feelings';
+
 /**
- * Handles the main intent coming from Assistant, when the user first engages with the action,
- * asking for an initial prompt from Eliza.
+ * Handles the MAIN intent coming from Assistant, when the user first engages
+ * with the app, expecting for an initial greeting from Eliza.
  */
-const mainIntentHandler = (assistant) => {
-  console.log('Main intent triggered.');
+const mainIntentHandler = (app) => {
+  console.log('MAIN intent triggered.');
   const eliza = new Eliza();
-  assistant.ask(eliza.getInitial(), {elizaInstance: eliza});
+  app.ask(eliza.getInitial(), {elizaInstance: eliza});
 };
 
 /**
- * Handles the intent where the user sends a query to be handled by Eliza.
+ * Handles the intent where the user invokes with a query to be handled by Eliza.
  *
- * This intent is triggered inside the dialogs when the user already has a conversation going on
- * with Eliza, or when the user 'deep links' into the action by calling Eliza and already sending an
- * initial prompt.
+ * This intent is triggered when the user invokes the Raw Input action by calling
+ * Eliza and already sending an initial prompt.
  */
-const rawIntentHandler = (assistant) => {
-  console.log('Raw input intent triggered.');
+const rawInputIntentHandler = (app) => {
+  console.log('raw.input intent triggered.');
+  const eliza = new Eliza();
+  const elizaReply = eliza.transform(app.getArgument(INVOCATION_ARGUMENT));
+  app.ask(elizaReply, {elizaInstance: eliza});
+};
+
+/**
+ * Handles the intent where the user returns a query to be handled by Eliza.
+ *
+ * This intent is triggered inside the dialogs when the user already has a
+ * conversation going on with Eliza
+ */
+const textIntentHandler = (app) => {
+  console.log('TEXT intent triggered.');
   const eliza = new Eliza();
 
   // Reloads the previous instance of Eliza in case this is an ongoing conversation
-  const previousEliza = assistant.getDialogState().elizaInstance;
+  const previousEliza = app.getDialogState().elizaInstance;
   if (previousEliza) {
     eliza.quit = previousEliza.quit;
     eliza.mem = previousEliza.mem;
     eliza.lastChoice = previousEliza.lastChoice;
   }
 
-  const elizaReply = eliza.transform(assistant.getRawInput());
+  const elizaReply = eliza.transform(app.getRawInput());
   if (eliza.quit) {
-    assistant.tell(eliza.getFinal());
+    app.tell(eliza.getFinal());
   } else {
-    assistant.ask(elizaReply, {elizaInstance: eliza});
+    app.ask(elizaReply, {elizaInstance: eliza});
   }
 };
-
-
-// Intent constants
-const RAW_INTENT = 'raw.input';
 
 /**
  * Handles the post request incoming from Assistant.
  */
 exports.eliza = (request, response) => {
   console.log('Incoming post request...');
-  const assistant = new ActionsSdkAssistant({request, response});
+  const app = new ActionsSdkApp({request, response});
 
-  // Map that contains the intents and respective handlers to be used by the actions client library
+  // Map that contains the intents and respective handlers to be used by the
+  // actions client library
   const actionMap = new Map();
 
   /**
-   * Configures the post request handler by setting the intent map to the right functions.
+   * Configures the post request handler by setting the intent map to the
+   * right functions.
    */
-  actionMap.set(assistant.StandardIntents.MAIN, mainIntentHandler);
-  actionMap.set(RAW_INTENT, rawIntentHandler);
-  actionMap.set(assistant.StandardIntents.TEXT, rawIntentHandler);
+  actionMap.set(app.StandardIntents.MAIN, mainIntentHandler);
+  actionMap.set(RAW_INTENT, rawInputIntentHandler);
+  actionMap.set(app.StandardIntents.TEXT, textIntentHandler);
 
-  assistant.handleRequest(actionMap);
+  app.handleRequest(actionMap);
 };

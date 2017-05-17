@@ -1,49 +1,50 @@
 {
-  "versionLabel": "Eliza v1",
-  "agentInfo": {
-    "languageCode": "en-US",
-    "projectId": "<PROJECT_ID>",
-    "invocationNames": [
-      "eliza"
-    ],
-    "voiceName": "female_1"
-  },
   "actions": [
     {
-      "description": "Start an Eliza consultation",
-      "initialTrigger": {
-        "intent": "assistant.intent.action.MAIN"
+      "description": "Default Welcome Intent",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "welcome"
       },
-      "httpExecution": {
-        "url": "<PROJECT_ENDPOINT>"
+      "intent": {
+        "name": "actions.intent.MAIN"
       }
     },
     {
-      "description": "Deep link to Eliza consultation",
-      "initialTrigger": {
-        "intent": "raw.input",
-        "queryPatterns": [
-          {
-            "queryPattern": "my emotional state is $SchemaOrg_Text:text"
-          },
-          {
-            "queryPattern": "I am concerned about $SchemaOrg_Text:text"
-          },
-          {
-            "queryPattern": "I am feeling $SchemaOrg_Text:text"
-          },
-          {
-            "queryPattern": "I need to talk about my feelings"
-          }
-        ]
+      "description": "Eliza response",
+      "name": "Raw input",
+      "fulfillment": {
+        "conversationName": "rawInput"
       },
-      "httpExecution": {
-        "url": "<PROJECT_ENDPOINT>"
+      "intent": {
+        "name": "raw.input",
+        "parameters": [{
+          "name": "feelings",
+          "type": "SchemaOrg_Text"
+        }],
+        "trigger": {
+          "queryPatterns": [
+            "my emotional state is $SchemaOrg_Text:feelings",
+            "getting some advice",
+            "feeling better",
+            "how to feel better",
+            "I am feeling $SchemaOrg_Text:feelings"
+          ]
+        }
+      },
+      "fulfillment": {
+        "conversationName": "rawInput"
       }
     }
   ],
-  "deploymentStatus": {
-    "state": "NEW"
-  },
-  "versionId": "1"
+  "conversations": {
+    "welcome": {
+      "name": "welcome",
+      "url": "YOUR_HTTP_URL"
+    },
+    "rawInput": {
+      "name": "rawInput",
+      "url": "YOUR_HTTP_URL"
+    }
+  }
 }

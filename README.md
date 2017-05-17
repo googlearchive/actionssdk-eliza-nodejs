@@ -4,18 +4,16 @@ This sample includes code from elizabot by N. Landsteiner, based on the original
 
 ## Setup Instructions
 
-### Pre-requisites
- 1. Actions SDK: [https://developers.google.com/actions/develop/sdk/getting-started#getting-started](https://developers.google.com/actions/develop/sdk/getting-started#getting-started).
- 1. Google Cloud SDK: [https://developers.google.com/actions/develop/sdk/getting-started#deploy-your-action-web-service](https://developers.google.com/actions/develop/sdk/getting-started#deploy-your-action-web-service).
-
-See the developer guide and release notes at [https://developers.google.com/actions/](https://developers.google.com/actions/) for more details.
-
 ### Steps
- 1. Deploy this action to your preferred hosting environment
- (we recommend [Google Cloud Functions](https://cloud.google.com/functions/docs/tutorials/http)).
- 1. Update the action package, eliza.json, with your endpoint URL.
- 1. Preview the action using the gactions CLI: ./gactions preview --action_package eliza.json --invocation_name "eliza action" --preview_mins 1234
- 1. Use the gactions simulator to test the action (try "talk to eliza action"): ./gactions simulate
+1. Use the [Actions on Google Console](https://console.actions.google.com) to add a new project with a name of your choosing.
+1. Choose "Actions SDK"
+1. Deploy this action to your preferred hosting environment
+(we recommend [Google Cloud Functions](https://cloud.google.com/functions/docs/tutorials/http)).
+1. Update the action package, eliza.json, with your endpoint URL.
+1. Use the gActions CLI to complete the command shown in the Actions console.
+1. Click "OK" in the Actions console.
+1. Open the Simulator in the Actions console.
+1. Type "Talk to my test app" in the simulator, or say "OK Google, talk to my test app" to any Actions on Google enabled device signed into your developer account.
 
 For more detailed information on deployment, see the [documentation](https://developers.google.com/actions/samples/).
 
