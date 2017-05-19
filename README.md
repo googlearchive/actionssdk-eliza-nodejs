@@ -1,4 +1,4 @@
-# Actions On Google Actions SDK Eliza Sample using Node.js
+# Actions On Google: Actions SDK Eliza Sample using Node.js
 
 This sample includes code from elizabot by N. Landsteiner, based on the original ELIZA program by Joseph Zeizenbaum (MIT 1966).
 
