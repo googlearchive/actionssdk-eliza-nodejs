@@ -42,7 +42,9 @@ const mainIntentHandler = (app) => {
 const rawInputIntentHandler = (app) => {
   console.log('raw.input intent triggered.');
   const eliza = new Eliza();
-  const elizaReply = eliza.transform(app.getArgument(INVOCATION_ARGUMENT));
+  const invocationArg = app.getArgument(INVOCATION_ARGUMENT);
+  const elizaReply = invocationArg ? eliza.transform(invocationArg) :
+    eliza.getInitial();
   app.ask(elizaReply, {elizaInstance: eliza});
 };
 
