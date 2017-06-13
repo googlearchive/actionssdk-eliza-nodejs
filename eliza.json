@@ -40,11 +40,11 @@
   "conversations": {
     "welcome": {
       "name": "welcome",
-      "url": "YOUR_HTTP_URL"
+      "url": "YOUR_ENDPOINT_URL"
     },
     "rawInput": {
       "name": "rawInput",
-      "url": "YOUR_HTTP_URL"
+      "url": "YOUR_ENDPOINT_URL"
     }
   }
 }

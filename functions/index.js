@@ -18,6 +18,7 @@ process.env.DEBUG = 'actions-on-google:*';
 
 const ActionsSdkApp = require('actions-on-google').ActionsSdkApp;
 const Eliza = require('elizabot');
+const functions = require('firebase-functions');
 
 // Intent constants
 const RAW_INTENT = 'raw.input';
@@ -43,8 +44,8 @@ const rawInputIntentHandler = (app) => {
   console.log('raw.input intent triggered.');
   const eliza = new Eliza();
   const invocationArg = app.getArgument(INVOCATION_ARGUMENT);
-  const elizaReply = invocationArg ? eliza.transform(invocationArg) :
-    eliza.getInitial();
+  const elizaReply = invocationArg ? eliza.transform(invocationArg)
+    : eliza.getInitial();
   app.ask(elizaReply, {elizaInstance: eliza});
 };
 
@@ -77,7 +78,7 @@ const textIntentHandler = (app) => {
 /**
  * Handles the post request incoming from Assistant.
  */
-exports.eliza = (request, response) => {
+exports.eliza = functions.https.onRequest((request, response) => {
   console.log('Incoming post request...');
   const app = new ActionsSdkApp({request, response});
 
@@ -94,4 +95,4 @@ exports.eliza = (request, response) => {
   actionMap.set(app.StandardIntents.TEXT, textIntentHandler);
 
   app.handleRequest(actionMap);
-};
+});
