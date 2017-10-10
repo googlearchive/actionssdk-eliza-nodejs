@@ -31,9 +31,6 @@
             "I am feeling $SchemaOrg_Text:feelings"
           ]
         }
-      },
-      "fulfillment": {
-        "conversationName": "rawInput"
       }
     }
   ],
