@@ -37,11 +37,13 @@
   "conversations": {
     "welcome": {
       "name": "welcome",
-      "url": "YOUR_ENDPOINT_URL"
+      "url": "YOUR_ENDPOINT_URL",
+      "fulfillmentApiVersion": 2
     },
     "rawInput": {
       "name": "rawInput",
-      "url": "YOUR_ENDPOINT_URL"
+      "url": "YOUR_ENDPOINT_URL",
+      "fulfillmentApiVersion": 2
     }
   }
 }
