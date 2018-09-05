@@ -20,15 +20,15 @@
         "name": "raw.input",
         "parameters": [{
           "name": "feelings",
-          "type": "SchemaOrg_Text"
+          "type": "org.schema.type.Text"
         }],
         "trigger": {
           "queryPatterns": [
-            "my emotional state is $SchemaOrg_Text:feelings",
+            "my emotional state is $org.schema.type.Text:feelings",
             "getting some advice",
             "feeling better",
             "how to feel better",
-            "I am feeling $SchemaOrg_Text:feelings"
+            "I am feeling $org.schema.type.Text:feelings"
           ]
         }
       }
