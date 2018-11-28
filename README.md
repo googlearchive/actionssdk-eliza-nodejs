@@ -1,4 +1,8 @@
-# Actions On Google: Actions SDK Eliza Sample using Node.js and Cloud Functions for Firebase
+# Project Status
+
+This sample is no longer maintained. It's here for archive purposes only.
+
+# Actions on Google: Actions SDK Eliza Sample using Node.js and Cloud Functions for Firebase
 
 This sample includes code from elizabot by N. Landsteiner, based on the original ELIZA program by Joseph Zeizenbaum (MIT 1966).
 
